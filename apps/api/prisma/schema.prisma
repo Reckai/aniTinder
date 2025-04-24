@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String  @id @default(uuid()) @db.Uuid
+  externalId String  @map("external_id")
+  authData   Json    @map("auth_data")
+  username   String
+  email      String?
+  avatar     String
+
+  @@map("user")
+}
+
+enum MediaType {
+  MOVIE
+  ANIME
+  CARTOON
+  TV_SHOW
+}
+
+model Media {
+  id             String    @id @default(uuid())
+  title          String
+  titleOnRussian String?
+  type           MediaType
+  created_at     DateTime  @default(now())
+  updated_at     DateTime  @updatedAt
+  poster         String
+  movie          Movie?
+  anime          Anime?
+  cartoon        Cartoon?
+  tvShow         TvShow?
+}
+
+model Movie {
+  id       String @id @default(uuid())
+  mediaId  String @unique
+  media    Media  @relation(fields: [mediaId], references: [id])
+  duration Int
+  director String
+}
+
+model Anime {
+  id       String @id @default(uuid())
+  mediaId  String @unique
+  media    Media  @relation(fields: [mediaId], references: [id])
+  episodes Int
+  studio   String
+}
+
+model Cartoon {
+  id       String @id @default(uuid())
+  mediaId  String @unique
+  media    Media  @relation(fields: [mediaId], references: [id])
+  episodes Int
+  network  String
+}
+
+model TvShow {
+  id      String @id @default(uuid())
+  mediaId String @unique
+  media   Media  @relation(fields: [mediaId], references: [id])
+  seasons Int
+  network String
+}

@@ -8,9 +8,13 @@
     "dev": "turbo run dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
-    "test": "turbo run test"
+    "test": "turbo run test",
+    "prepare": "husky"
   },
-  "dependencies": {},
+  "dependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1"
+  },
   "devDependencies": {
     "prettier": "^3.2.5",
     "turbo": "^2.5.0"

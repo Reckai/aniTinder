@@ -1,10 +1,32 @@
 {
-  "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
-    "lib": ["ES2015"],
+    "incremental": true,
+    "target": "ES2021",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "baseUrl": "./",
+    "module": "commonjs",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/generated/*": ["./generated/*"]
+    },
+    "plugins": [
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "./schema.graphql"
+      }
+    ],
+    "strictBindCallApply": false,
+    "strictNullChecks": false,
+    "noFallthroughCasesInSwitch": false,
+    "noImplicitAny": false,
+    "declaration": true,
     "outDir": "./dist",
-    "rootDir": "./src"
-  },
-  "exclude": ["node_modules"],
-  "include": ["src"]
+    "removeComments": true,
+    "sourceMap": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": false,
+    "skipLibCheck": true
+  }
 }

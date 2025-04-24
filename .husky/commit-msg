@@ -1,0 +1,21 @@
+
+commit_msg_file=$1
+
+# Get the commit message
+commit_msg=$(cat $commit_msg_file)
+
+# Define the commit message pattern
+commit_pattern="^(feat|fix|docs|style|refactor|test|chore)(\([a-z-]+\))?: .{1,50}$"
+
+# Check if the commit message matches the pattern
+if ! echo "$commit_msg" | grep -qE "$commit_pattern"; then
+    echo "\033[0;31mError: Invalid commit message format.\033[0m"
+    echo "\nCommit message must follow the convention:"
+    echo "type(scope?): description"
+    echo "\nAllowed types: feat, fix, docs, style, refactor, test, chore"
+    echo "\nExample valid commits:"
+    echo "- feat(auth): add login functionality"
+    echo "- fix: resolve memory leak issue"
+    echo "- docs: update README installation steps"
+    exit 1
+fi
