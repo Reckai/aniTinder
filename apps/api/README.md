@@ -22,6 +22,77 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+# API Service
+
+## Описание
+
+API сервис для работы с различными внешними API, включая:
+
+- Shikiomori API (GraphQL)
+- TMDB API (REST)
+
+## Установка
+
+```bash
+cd apps/api
+npm install
+```
+
+## Настройка переменных окружения
+
+Создайте файл `.env` на основе `.env.example` и заполните необходимые переменные:
+
+```bash
+cp .env.example .env
+```
+
+### TMDB API
+
+Для работы с TMDB API вам необходимо получить API ключ:
+
+1. Зарегистрируйтесь на сайте [TMDB](https://www.themoviedb.org/signup)
+2. Перейдите в [Настройки API](https://www.themoviedb.org/settings/api)
+3. Запросите API ключ (тип: Developer)
+4. Добавьте полученный ключ в `.env` файл:
+
+```
+TMDB_API_KEY="your_api_key_here"
+```
+
+## Генерация API клиентов
+
+### TMDB API
+
+Для генерации TypeScript клиента для TMDB API выполните:
+
+```bash
+npm run generate-api
+```
+
+Это создаст типизированные функции для работы с TMDB API в директории `generated/tmdb`.
+
+## Запуск сервиса
+
+### Режим разработки
+
+```bash
+npm run dev
+```
+
+### Продакшн
+
+```bash
+npm run build
+npm run prod
+```
+
+## API Endpoints
+
+### TMDB API
+
+- `GET /api/tmdb/search/movies?query=string&page=number` - Поиск фильмов
+- `GET /api/tmdb/movies/popular?page=number` - Получение популярных фильмов
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.

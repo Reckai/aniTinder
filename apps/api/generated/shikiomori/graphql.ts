@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { DocumentTypeDecoration } from '@graphql-typed-document-node/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -687,6 +688,32 @@ export enum VideoKindEnum {
   Pv = 'pv',
 }
 
+export type GetAnimesQueryVariables = Exact<{
+  page: Scalars['PositiveInt']['input'];
+  limit: Scalars['PositiveInt']['input'];
+  search?: InputMaybe<Scalars['String']['input']>;
+  kind?: InputMaybe<Scalars['AnimeKindString']['input']>;
+  status?: InputMaybe<Scalars['AnimeStatusString']['input']>;
+}>;
+
+export type GetAnimesQuery = {
+  __typename?: 'Query';
+  animes: Array<{
+    __typename?: 'Anime';
+    russian?: string | null;
+    english?: string | null;
+    episodes: number;
+    description?: string | null;
+    poster?: { __typename?: 'Poster'; originalUrl: string } | null;
+    genres?: Array<{
+      __typename?: 'Genre';
+      name: string;
+      russian: string;
+    }> | null;
+    studios: Array<{ __typename?: 'Studio'; name: string }>;
+  }>;
+};
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -705,3 +732,33 @@ export class TypedDocumentString<TResult, TVariables>
     return this.value;
   }
 }
+
+export const GetAnimesDocument = new TypedDocumentString(`
+    query GetAnimes($page: PositiveInt!, $limit: PositiveInt!, $search: String, $kind: AnimeKindString, $status: AnimeStatusString) {
+  animes(
+    page: $page
+    limit: $limit
+    search: $search
+    kind: $kind
+    status: $status
+  ) {
+    russian
+    english
+    episodes
+    poster {
+      originalUrl
+    }
+    genres {
+      name
+      russian
+    }
+    studios {
+      name
+    }
+    description
+  }
+}
+    `) as unknown as TypedDocumentString<
+  GetAnimesQuery,
+  GetAnimesQueryVariables
+>;

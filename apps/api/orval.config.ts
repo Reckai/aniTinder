@@ -1,8 +1,17 @@
 export default {
-  pokemon: {
-    input: './src/static/api/ani.yml',
+  tmdb: {
+    input: 'https://developer.themoviedb.org/openapi/64542913e1f86100738e227f',
     output: {
-      schemas: 'generated/api',
+      mode: 'split',
+      target: './src/generated/tmdb/api.ts',
+      schemas: './generated/tmdb/schemas',
+      client: 'axios',
+      override: {
+        mutator: {
+          path: './src/utils/api/tmdb/mutator.ts',
+          name: 'customInstance',
+        },
+      },
     },
   },
 };

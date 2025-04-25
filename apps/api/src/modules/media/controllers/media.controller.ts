@@ -48,12 +48,13 @@ export class MediaController {
     @Query('page') page = 1,
     @Query('limit') limit = 10,
   ) {
+    const limitToNumber = Number(limit);
     return this.mediaService.findAll({
       type,
       title,
       year,
       page,
-      limit,
+      limit: limitToNumber,
     });
   }
 
