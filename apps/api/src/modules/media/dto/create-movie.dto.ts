@@ -7,7 +7,7 @@ import {
   Min,
 } from 'class-validator';
 
-export class CreateCartoonDTO {
+export class CreateMovieDTO {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
@@ -21,7 +21,7 @@ export class CreateCartoonDTO {
   @ApiProperty()
   @IsNumber()
   @Min(1)
-  episodes: number;
+  duration: number;
 
   @ApiProperty({ required: true })
   @IsString()
@@ -29,6 +29,5 @@ export class CreateCartoonDTO {
 
   @ApiProperty()
   @IsString()
-  @IsNotEmpty()
-  network: string;
+  director: string;
 }
